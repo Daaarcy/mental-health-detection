@@ -1,0 +1,48 @@
+<!-- views/index.ejs -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Mental Health Detection</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+    <div class="chat-bot">
+        <h3>🤖 How are you feeling today?</h3>
+
+        <div class="emotions">
+            <button onclick="setFeeling('Happy')">😊 Happy</button>
+            <button onclick="setFeeling('Sad')">😢 Sad</button>
+            <button onclick="setFeeling('Anxious')">😰 Anxious</button>
+            <button onclick="setFeeling('Angry')">😠 Angry</button>
+        </div>
+
+        <form method="POST" action="/analyze">
+            <textarea name="text" id="text" placeholder="Type your feelings..."></textarea>
+            <button type="submit">Analyze</button>
+        </form>
+
+        <% if (result) { %>
+            <div class="result">
+                <p><strong>Prediction:</strong>
+                    <%= result.prediction %>
+                </p>
+                <p><strong>Confidence:</strong>
+                    <%= result.confidence %>
+                </p>
+                <p><strong>Explanation:</strong>
+                    <%= result.explanation %>
+                </p>
+            </div>
+            <% } %>
+    </div>
+
+    <script>
+        function setFeeling(feeling) {
+            document.getElementById('text').value = feeling;
+        }
+    </script>
+</body>
+
+</html>
